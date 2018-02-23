@@ -70,6 +70,8 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
+    httparty (0.16.0)
+      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -89,6 +91,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     nio4r (2.2.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -183,8 +186,10 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   haml
+  httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  nokogiri
   puma (~> 3.7)
   rails (~> 5.1.4)
   sass-rails (~> 5.0)
