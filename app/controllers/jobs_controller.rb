@@ -1,3 +1,5 @@
 class JobsController < ApplicationController
-  def home; end
+  def home
+    ScrapeIndeedJob.perform_now
+  end
 end
