@@ -1,2 +1,12 @@
 %h1 Hello World
 %h3 This is where your landing page will run.
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Name
+      %th url
+  %tbody
+    - @jobs.each do |job|
+      %tr
+        %td= job.name
+        %td= job.link
