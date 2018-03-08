@@ -3,41 +3,52 @@ class ScrapeIndeedJob < ApplicationJob
   require 'open-uri'
 
   def perform
-    pagination_number = 0
-    # url = 'https://www.indeed.com/jobs?q=%28Ruby+or+Rails+or+Ruby+or+On+or+Rails+or+Angular+or+Lambda+or+Javascript+or+React+or+Front-End+or+Back-End+or+AWS+or+Sinatra+or+RSPEC+or+QA+or+Testing%29&sort=date&limit=50&fromage=1&radius=25&start=' + pagination_number.to_s
-    doc = Nokogiri::HTML(open(url))
     success = 0
     errors = 0
-      while pagination_number != nil
+    duplicates = 0
+    total_duplicates = 0
+    url = 'https://www.indeed.com/jobs?as_and=&as_phr=&as_any=Ruby+Rails+Ruby+On+Rails+Angular+Lambda+Javascript+React+Front-End+Back-End+AWS+Sinatra+RSPEC&as_not=senior+sr+salesforce+ios+android&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=25&l=&fromage=1&limit=50&sort=date&psf=advsrch'
+      while url != nil && duplicates < 10
+        doc = Nokogiri::HTML(open(url))
         doc.xpath("//a[@class='turnstileLink']").map do |posting|
           begin
-            href = posting.attributes['href'].value
-            if href.include? "clk?jk="
-              link = 'https://www.indeed.com/viewjob?' + href[8..-1].split('&fccid')[0]
-            else
-              link = 'https://www.indeed.com/cmp' + href[8..-1].split('?fccid')[0]
+            if duplicates < 10
+              href = posting.attributes['href'].value
+              if href.include? "clk?jk="
+                link = 'https://www.indeed.com/viewjob?' + href[8..-1].split('&fccid')[0]
+              else
+                link = 'https://www.indeed.com/cmp' + href[8..-1].split('?fccid')[0]
+              end
+              if Job.where(link: link).any?
+                p 'DUPLICATE POSTING FOUND'
+                duplicates += 1
+                total_duplicates += 1
+              else
+                doc2 = Nokogiri::HTML(open(link))
+                posting_name = doc2.xpath("//b[@class='jobtitle']")[0].children.children.text
+                posting_location = doc2.xpath("//input[@id='where']/@value").text
+                posting_company = doc2.xpath("//td[1]/div/span[@class='company']").text
+                posting_body = doc2.xpath("//table[@id='job-content']").text.delete("\n").delete("\t").delete("â\u0080¢").split('   -  save jobif (!window')[0].split("        ")[0..-2].last
+                Job.create(name: posting_name, location: posting_location, company: posting_company, body: posting_body, link: link)
+                p Job.count.to_s + ' Job Models Succesfully Created'
+                success += 1
+                duplicates = 0
+              end
             end
-            doc2 = Nokogiri::HTML(open(link))
-            name = doc2.xpath("//b[@class='jobtitle']")[0].children.children.text
-            location = doc2.xpath("//td[1]/div/span[@class='location']").text
-            company = doc2.xpath("//td[1]/div/span[@class='company']").text
-            body = doc2.xpath("//table[@id='job-content']").text.delete("\n").delete("\t").delete("â\u0080¢").split('   -  save jobif (!window')[0].split("        ")[0..-2].last
-            success += 1
-            Job.create(name: name, location: location, company: company, body: body, link: link)
-            p success.to_s + ' Job Posting Succesfully Scraped'
-            p Job.count.to_s + ' Job Models Succesfully Created'
           rescue
             errors += 1
             p errors.to_s + ' Current Errors'
             next
           end
-          if doc.search(".np").first.text != '« Previous'
-            pagination_number += 50
-          else pagination_number = nil
-          end
+        end
+        if doc.css('div.pagination a').last.children.text.include? 'Next'
+          url = 'https://www.indeed.com' + doc.css('div.pagination a').last.values.first
+        else url = nil
         end
       end
+    p "=================================="
     p success.to_s + ' Total Succeded'
     p errors.to_s + ' Total Errors'
+    p total_duplicates.to_s + ' Total Duplicates'
   end
 end
