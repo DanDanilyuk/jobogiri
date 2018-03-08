@@ -1,0 +1,19 @@
+%h1.center Hello Users
+%h3.center Here are your jobs
+%h3.center= @user_jobs.count.to_s + ' jobs'
+%table.table.striped
+  %thead
+    %tr
+      %th Name
+      %th Location
+      %th Company
+      %th Link
+      %th State
+  %tbody
+    - @user_jobs.each do |user_job|
+      %tr
+        %td= user_job.job.name
+        %td= user_job.job.location
+        %td= user_job.job.company
+        %td= link_to "Link", user_job.job.link, class: "btn btn-default btn-raised", target: :_blank
+        %td= user_job.state
