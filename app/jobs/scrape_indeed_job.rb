@@ -45,7 +45,6 @@ class ScrapeIndeedJob < ApplicationJob
     # Goes through all jobs and removes all unsaved jobs
     p 'BEGIN VALIDATING JOBS'
     Job.active.map do |job|
-      status = Net::HTTP.get_response(URI.parse(job.link)).is_a?(Net::HTTPSuccess)
       if Net::HTTP.get_response(URI.parse(job.link)).is_a?(Net::HTTPSuccess)
         next
       elsif job.users.any?
