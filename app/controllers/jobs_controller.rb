@@ -1,11 +1,11 @@
 class JobsController < ApplicationController
   def home
-    flash[:success] = "Welcome to the Sample App!"
-    @jobs = Job.all
+    # flash[:success] = "Welcome to the Sample App!"
+    @jobs = Job.where(state: 0)
   end
 
   def index
-    @jobs = Job.all
+    @jobs = Job.where(state: 0)
   end
 
   def search
