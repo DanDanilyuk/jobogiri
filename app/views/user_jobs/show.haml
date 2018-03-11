@@ -1,0 +1,10 @@
+%h4.center= "Job Title: #{@user_job.job.name}"
+%h5.center= "Job Location: #{@user_job.job.location}"
+%h5.center= "Job Company: #{@user_job.job.company}"
+.center!= link_to "Link", @user_job.job.link, class: "btn btn-default btn-raised", target: :_blank
+%h5.center= "Job State: #{@user_job.state}"
+%h5.center= "Job Comments: #{@user_job.comments}"
+%h5.center= "Job Body: "
+!= @user_job.job.body
+%br
+%br
