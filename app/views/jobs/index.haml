@@ -1,5 +1,5 @@
-%h1.center Hello User
-%h3.center Here are your jobs
+%h1.center= 'Hello ' +  current_user.first_name
+%h4.center Here are all the jobs
 %h3.center= @jobs.count.to_s + ' jobs'
 %table.table.striped
   %thead
