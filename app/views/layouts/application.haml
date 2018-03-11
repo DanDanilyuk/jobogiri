@@ -29,8 +29,8 @@
         %i.material-icons menu
   .container
     - flash.each do |key, value|
-      .alert.alert-info.alert-dismissible.fade.show{:role => "alert"}
-        %li{:class => (key)} test
+      .center.alert.alert-info.alert-dismissible.fade.show{:role => "alert"}
+        -# %li{:class => (key)} test
         = value
     = yield
 %footer.page-footer.teal

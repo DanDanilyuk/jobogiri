@@ -1,5 +1,5 @@
-%h1.center Hello Users
-%h3.center Here are your jobs
+%h1.center= 'Hello ' +  current_user.first_name
+%h4.center Here are your saved jobs
 %h3.center= @user_jobs.count.to_s + ' jobs'
 %table.table.striped
   %thead
@@ -9,11 +9,13 @@
       %th Company
       %th Link
       %th State
+      %th Status
   %tbody
     - @user_jobs.each do |user_job|
       %tr
-        %td= user_job.job.name
+        %td= link_to user_job.job.name, user_job_path(id: user_job.id)
         %td= user_job.job.location
         %td= user_job.job.company
         %td= link_to "Link", user_job.job.link, class: "btn btn-default btn-raised", target: :_blank
         %td= user_job.state
+        %td= user_job.job.state
