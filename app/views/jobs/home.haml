@@ -7,11 +7,10 @@
       .row.center
         %h5.header.col.s12.light A tool used to find, filter, track, and get a programming job.
       .row.center
-        %a#download-button.btn-large.waves-effect.waves-light.teal.lighten-1{:href => "http://materializecss.com/getting-started.html"} Get Started
+        != link_to "Get Started", new_user_registration_path, class: "btn-large waves-effect waves-light teal lighten-1", id: "download-button"
       %br/
       %br/
-  .parallax
-    %img{:alt => "Unsplashed background img 1", :src => "background1.jpg"}
+  .parallax= image_tag 'background1.jpg', alt: 'Unsplashed background img 1'
 .container
   .section
     / Icon Section
@@ -39,8 +38,7 @@
     .container
       .row.center
         %h5.header.col.s12.light This is a super cool classic car but I don't know why its here really.
-  .parallax
-    %img{:alt => "Unsplashed background img 2", :src => "background2.jpg"}
+  .parallax= image_tag 'background2.jpg', alt: 'Unsplashed background img 2'
 .container
   .section
     .row
@@ -54,5 +52,4 @@
     .container
       .row.center
         %h5.header.col.s12.light This is a super cool mountain photo but I don't know why its here either.
-  .parallax
-    %img{:alt => "Unsplashed background img 3", :src => "background3.jpg"}
+  .parallax= image_tag 'background3.jpg', alt: 'Unsplashed background img 3'
