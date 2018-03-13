@@ -37,6 +37,7 @@ gem 'jquery-rails'
 
 # Gems for HAML views
 gem 'haml'
+gem 'html2haml'
 
 # Gems for Scraping
 gem 'httparty'
@@ -44,6 +45,9 @@ gem 'nokogiri'
 
 # Gem for Materialize
 gem 'materialize-sass'
+
+# Gem for Pagination
+gem 'kaminari'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
