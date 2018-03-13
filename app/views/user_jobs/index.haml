@@ -1,6 +1,6 @@
 %h1.center= 'Hello ' +  current_user.first_name
 %h4.center Here are your saved jobs
-%h3.center= @user_jobs.count.to_s + ' jobs'
+%h5.center= 'You have ' + current_user.user_jobs.count.to_s + ' jobs saved'
 %table.table.striped
   %thead
     %tr
@@ -10,6 +10,7 @@
       %th Link
       %th State
       %th Status
+      %th Remove
   %tbody
     - @user_jobs.each do |user_job|
       %tr
@@ -19,3 +20,5 @@
         %td= link_to "Link", user_job.job.link, class: "btn btn-default btn-raised", target: :_blank
         %td= user_job.state
         %td= user_job.job.state
+        %td= link_to "Remove", user_job_path(user_job.job.id), method: :delete, data: {confirm: "Are you sure you want to delete this job?"}, class: "btn btn-xs btn-raised amber"
+= paginate @user_jobs

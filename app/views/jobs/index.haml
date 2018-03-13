@@ -15,5 +15,9 @@
         %td= job.name
         %td= job.location
         %td= job.company
-        %td= link_to "Favorite", new_user_job_path(job_id: job.id), class: "btn btn-primary btn-xs btn-raised"
+        -if job.user_jobs.where(user_id: current_user.id).any?
+          %td= link_to "Remove", user_job_path(job.id), method: :delete, data: {confirm: "Are you sure you want to delete this job?"}, class: "btn btn-xs btn-raised amber"
+        - else
+          %td= link_to "Favorite", new_user_job_path(job_id: job.id), class: "btn btn-primary btn-xs btn-raised"
         %td= link_to "Link", job.link, class: "btn btn-default btn-raised", target: :_blank
+= paginate @jobs
