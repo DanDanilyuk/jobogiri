@@ -5,11 +5,12 @@ class JobsController < ApplicationController
   end
 
   def index
-    @jobs = Job.where(state: 0)
+    page_num = params[:page] ? params[:page] : 1
+    @jobs = Job.where(state: 0).page(page_num)
   end
 
   def search
     ScrapeIndeedJob.perform_now
-    redirect_to root_path, flash: {success: "Success! Job Added to your jobs."}
+    redirect_to jobs_path, flash: {success: "Success! Job Added to your jobs."}
   end
 end
