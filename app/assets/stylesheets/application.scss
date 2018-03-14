@@ -69,16 +69,12 @@ p {
   font-size: inherit;
 }
 
-footer.page-footer {
-  margin: 0;
-}
-
 .pagination, .pagination a, .pagination span.current {
   text-align: center;
   color: black;
   background-color: white;
   box-shadow: none;
-  margin: -10 0 -10 0;
+  height: 55px;
 }
 
 html {
@@ -86,13 +82,15 @@ html {
   min-height: 100%;
 }
 body {
-  margin: 0 0 70px;
+  margin: 0 0 50px;
 }
+
 footer {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
+  padding: 15px 0 15px 0;
 }
 
 .main-content {
