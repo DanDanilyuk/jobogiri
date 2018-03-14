@@ -9,6 +9,10 @@ class JobsController < ApplicationController
     @jobs = Job.where(state: 0).page(page_num)
   end
 
+  def show
+    @job = Job.find(params['id'])
+  end
+
   def search
     ScrapeIndeedJob.perform_now
     redirect_to jobs_path, flash: {success: "Success! Job Added to your jobs."}
