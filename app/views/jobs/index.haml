@@ -1,6 +1,6 @@
 %h1.center= 'Hello ' +  current_user.first_name
 %h4.center Here are all the jobs
-%h3.center= @jobs.count.to_s + ' jobs'
+%h5.center= 'There are ' + Job.active.count.to_s + ' total jobs.'
 %table.table.striped
   %thead
     %tr
@@ -12,7 +12,7 @@
   %tbody
     - @jobs.each do |job|
       %tr
-        %td= job.name
+        %td= link_to job.name, job_path(job.id), target: :_blank
         %td= job.location
         %td= job.company
         -if job.user_jobs.where(user_id: current_user.id).any?

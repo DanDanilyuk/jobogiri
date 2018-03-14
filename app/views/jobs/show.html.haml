@@ -1,7 +1,13 @@
-%p#notice= notice
-%p
-  %strong Index:
-  = @job.index
-= link_to 'Edit', edit_job_path(@job)
-|
-= link_to 'Back', jobs_path
+%h4.center= "Job Title: #{@job.name}"
+%h5.center= "Job Location: #{@job.location}"
+%h5.center= "Job Company: #{@job.company}"
+%p.center
+  = link_to "Link", @job.link, class: "btn btn-default btn-raised", target: :_blank
+  -if @job.user_jobs.where(user_id: current_user.id).any?
+    %td= link_to "Remove", user_job_path(@job.id), method: :delete, data: {confirm: "Are you sure you want to delete this job?"}, class: "btn btn-xs btn-raised amber"
+  - else
+    %td= link_to "Favorite", new_user_job_path(job_id: @job.id), class: "btn btn-primary btn-xs btn-raised"
+%h5.center= "Job Body: "
+!= @job.body
+%br
+%br

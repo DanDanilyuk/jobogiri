@@ -27,7 +27,7 @@
           %li= link_to 'Login', new_user_session_path
       %a.button-collapse{"data-activates" => "nav-mobile", :href => "#"}
         %i.material-icons menu
-  .container
+  .main-content.container
     - flash.each do |key, value|
       .center.alert.alert-info.alert-dismissible.fade.show{:role => "alert"}
         -# %li{:class => (key)} test
