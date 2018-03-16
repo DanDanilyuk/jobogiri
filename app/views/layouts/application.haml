@@ -11,7 +11,6 @@
       = link_to 'JoboGiri', root_path, class: 'brand-logo', id: 'logo-container'
       %ul.right.hide-on-med-and-down
         %li= link_to 'Jobs', jobs_path
-        %li= link_to 'Search', search_path
         %li= link_to 'My Jobs', user_jobs_path
         - if current_user
           %li= link_to 'Logout', destroy_user_session_path
@@ -19,7 +18,6 @@
           %li= link_to 'Login', new_user_session_path
       %ul#nav-mobile.side-nav
         %li= link_to 'Jobs', jobs_path
-        %li= link_to 'Search', search_path
         %li= link_to 'My Jobs', user_jobs_path
         - if current_user
           %li= link_to 'Logout', destroy_user_session_path
