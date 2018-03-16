@@ -6,7 +6,7 @@ class JobsController < ApplicationController
 
   def index
     page_num = params[:page] ? params[:page] : 1
-    @jobs = Job.where(state: 0).page(page_num)
+    @jobs = Job.where(state: 0).order(id: :desc).page(page_num)
   end
 
   def show
@@ -14,7 +14,6 @@ class JobsController < ApplicationController
   end
 
   def search
-    ScrapeIndeedJob.perform_now
     redirect_to jobs_path, flash: {success: "Success! Job Added to your jobs."}
   end
 end
