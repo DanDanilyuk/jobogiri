@@ -49,8 +49,9 @@ gem 'materialize-sass'
 # Gem for Pagination
 gem 'kaminari'
 
-# Gem for Chron Jobs
-gem 'whenever'
+# Gem for Scheduling
+gem 'rufus-scheduler'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
