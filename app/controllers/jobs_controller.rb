@@ -12,8 +12,4 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params['id'])
   end
-
-  def search
-    redirect_to jobs_path, flash: {success: "Success! Job Added to your jobs."}
-  end
 end
