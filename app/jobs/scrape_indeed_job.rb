@@ -5,7 +5,7 @@ class ScrapeIndeedJob < ApplicationJob
   def perform
     duplicates = 0
     start = Time.now
-    url = 'https://www.indeed.com/jobs?as_and=&as_phr=%22developer%22&as_any=Ruby+Rails+Ruby-On-Rails+ROR+Angular+Lambda+Javascript+React+Front-End+Back-End+AWS+Sinatra+RSPEC+HTML+CSS&as_not=senior+sr+salesforce+ios+android&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=25&l=&fromage=1&limit=50&sort=date&psf=advsrch'
+    url = 'https://www.indeed.com/jobs?as_and=&as_phr=%22developer%22&as_any=Ruby+Rails+Ruby-On-Rails+ROR+Angular+Lambda+Javascript+React+Front-End+Back-End+AWS+Sinatra+RSPEC+HTML+CSS&as_not=senior+sr+salesforce+ios+android+.net+Java&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=25&fromage=1&limit=50&sort=date&psf=advsrch'
     while url != nil && duplicates < 10
     # while url != nil && duplicates < 10 && Job.count < 100
       doc = Nokogiri::HTML(open(url))
