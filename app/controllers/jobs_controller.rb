@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   def home
-    # flash[:success] = "Welcome to the Sample App!"
+    # flash[:success] = "Hey Welcome to the Sample App!"
     @jobs = Job.where(state: 0)
   end
 
