@@ -3,7 +3,7 @@ require 'rufus-scheduler'
 scheduler = Rufus::Scheduler::singleton
 
 # Proper Scraper Schedule
-scheduler.cron '1 6-20/3 * * *' do
+scheduler.cron '10 6-20/3 * * *' do
   200.times do
     p 'SCRAPER STARTED - RUFUS TASK'
   end 
