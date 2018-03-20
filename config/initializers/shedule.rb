@@ -3,9 +3,6 @@ require 'rufus-scheduler'
 scheduler = Rufus::Scheduler::singleton
 
 # Proper Scraper Schedule
-scheduler.every 5.minutes do
-  200.times do
-    p 'SCRAPER STARTED - RUFUS TASK'
-  end 
+scheduler.chron '1 6-20 * * *' do
   ScrapeIndeedJob.perform_now
 end
