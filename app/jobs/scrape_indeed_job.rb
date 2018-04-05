@@ -4,7 +4,6 @@ class ScrapeIndeedJob < ApplicationJob
 
   def perform
     duplicates = 0
-    start = Time.now
     url = 'https://www.indeed.com/jobs?as_and=&as_phr=%22developer%22&as_any=Ruby+Rails+Ruby-On-Rails+ROR+Angular+Lambda+Javascript+React+Front-End+Back-End+AWS+Sinatra+RSPEC+HTML+CSS&as_not=senior+sr+salesforce+ios+android+.net+Java&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=25&fromage=1&limit=50&sort=date&psf=advsrch'
     while url != nil && duplicates < 10
     # while url != nil && duplicates < 10 && Job.count < 100
@@ -42,36 +41,5 @@ class ScrapeIndeedJob < ApplicationJob
       else url = nil
       end
     end
-    # Goes through all jobs and removes all unsaved jobs
-    p 'BEGIN VALIDATING JOBS'
-    Job.active.map do |job|
-      begin
-        if Net::HTTP.get_response(URI.parse(job.link)).is_a?(Net::HTTPSuccess)
-          check_job = Nokogiri::HTML(open(job.link))
-          if check_job.xpath("//p[@class='expired']").any?
-            if job.users.any?
-              job.update(state: 1)
-            else
-              job.delete
-            end
-          end
-        elsif job.users.any?
-          job.update(state: 1)
-        else
-          job.delete
-        end
-        next
-      rescue
-        if job.users.any?
-          job.update(state: 1)
-        else
-          job.delete
-        end
-        next
-      end
-    end
-    p '=================================='
-    finish = Time.now
-    p 'Total Scraper Runtime: ' + (finish - start).to_s
   end
 end
