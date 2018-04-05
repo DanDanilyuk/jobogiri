@@ -47,7 +47,14 @@ class ScrapeIndeedJob < ApplicationJob
     Job.active.map do |job|
       begin
         if Net::HTTP.get_response(URI.parse(job.link)).is_a?(Net::HTTPSuccess)
-          next
+          check_job = Nokogiri::HTML(open(job.link))
+          if check_job.xpath("//p[@class='expired']").any?
+            if job.users.any?
+              job.update(state: 1)
+            else
+              job.delete
+            end
+          end
         elsif job.users.any?
           job.update(state: 1)
         else
