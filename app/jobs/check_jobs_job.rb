@@ -1,5 +1,7 @@
 class CheckJobsJob < ApplicationJob
   queue_as :default
+  require 'open-uri'
+
   def perform
     Job.active.map do |job|
       begin
