@@ -5,8 +5,8 @@ class CheckJobsJob < ApplicationJob
   def perform
     Job.active.map do |job|
       begin
-        if Net::HTTP.get_response(URI.parse(job.link)).is_a?(Net::HTTPSuccess)
-          check_job = Nokogiri::HTML(open(job.link))
+        check_job = Nokogiri::HTML(open(job.link))
+        if check_job.xpath("//div[@class='not_found']").none?
           if check_job.xpath("//p[@class='expired']").any?
             if job.users.any?
               job.update(state: 1)
