@@ -1,6 +1,7 @@
 %h4.center= "Job Title: #{@user_job.job.name}"
 %h5.center= "Job Location: #{@user_job.job.location}"
 %h5.center= "Job Company: #{@user_job.job.company}"
+%h5.center= "Job Posted: #{time_ago_in_words(@user_job.job.created_at)}"
 %p.center
   = link_to "Link", @user_job.job.link, class: "btn btn-default btn-raised", target: :_blank
   = link_to "Remove", user_job_path(@user_job.job.id), method: :delete, data: {confirm: "Are you sure you want to delete this job?"}, class: "btn btn-xs btn-raised red"

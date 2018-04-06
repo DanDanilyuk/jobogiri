@@ -1,6 +1,7 @@
 %h4.center= "Job Title: #{@job.name}"
 %h5.center= "Job Location: #{@job.location}"
 %h5.center= "Job Company: #{@job.company}"
+%h5.center= "Job Posted: #{time_ago_in_words(@job.created_at)}"
 %p.center
   = link_to "Link", @job.link, class: "btn btn-default btn-raised", target: :_blank
   -if @job.user_jobs.where(user_id: current_user.id).any?
