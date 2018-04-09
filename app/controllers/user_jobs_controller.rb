@@ -2,7 +2,7 @@ class UserJobsController < ApplicationController
   def index
     # flash[:success] = "Welcome to the Sample App!"
     page_num = params[:page] ? params[:page] : 1
-    @user_jobs = current_user.user_jobs.page(page_num)
+    @user_jobs = current_user.user_jobs.page(page_num).order(id: :desc)
   end
 
   def new
