@@ -26,7 +26,7 @@ class ScrapeIndeedJob < ApplicationJob
               posting_name = doc2.xpath("//b[@class='jobtitle']")[0].children.children.text
               posting_location = doc2.xpath("//input[@id='where']/@value").text
               posting_company = doc2.xpath("//td[1]/div/span[@class='company']").text
-              posting_body = doc2.xpath("//table[@id='job-content']").to_html.split("result-link-bar-container").first[0..-47].split("snip")[1][3..-1].delete("\n").delete("\t").delete("â\u0080¢")
+              posting_body = doc2.xpath("//span[@id='job_summary']").to_html
               Job.create(name: posting_name, location: posting_location, company: posting_company, body: posting_body, link: link)
               p Job.count.to_s + ' Job Models Succesfully Created'
               duplicates = 0
