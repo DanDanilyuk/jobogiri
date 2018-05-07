@@ -82,4 +82,3 @@ production:
   <<: *default
   database: jobogiri_production
   username: jobogiri
-  password: <%= ENV['jobogiri_DATABASE_PASSWORD'] %>
