@@ -17,8 +17,8 @@
 //= require turbolinks
 //= require materialize-sprockets
 $(document).on('turbolinks:load', function() {
-  $('select').material_select();
-  $('.button-collapse').sideNav();
+  $('select').formSelect();
+  $('.button-collapse').sidenav();
   $('.parallax').parallax();
   $('.alert').append('<button class="waves-effect btn-flat close"><i class="material-icons">close</i></button>');
   $('body').on('click', '.alert .close', function() {
